@@ -1,4 +1,29 @@
 {
-  "root": true,
-  "extends": ["@nuxt/eslint-config"]
+	"root": true,
+	"extends": [
+		"@nuxt/eslint-config"
+	],
+	"rules": {
+		"vue/html-indent": [
+			"error",
+			"tab"
+		],
+		// enforce tabs in template
+		"indent": [
+			"error",
+			"tab"
+		],
+		// enforce tabs in script and js files
+		"vue/multi-word-component-names": [
+			"error",
+			{
+				"ignores": [
+					"header",
+					"red",
+					"default",
+					"load"
+				]
+			}
+		]
+	}
 }
