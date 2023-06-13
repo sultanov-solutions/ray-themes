@@ -1,8 +1,9 @@
-<script setup>
+<script setup lang="ts">
 
 </script>
+
 <template>
 	<div>
-		Nuxt module playground!
+		red header
 	</div>
 </template>
