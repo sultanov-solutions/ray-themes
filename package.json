@@ -1,8 +1,8 @@
 {
-  "name": "my-module",
-  "version": "1.0.0",
-  "description": "My new Nuxt module",
-  "repository": "your-org/my-module",
+  "name": "ray-themes",
+  "version": "1.0.5",
+  "description": "Nuxt Ray Themes",
+  "repository": "sultanov-solutions/ray-themes",
   "license": "MIT",
   "type": "module",
   "exports": {
