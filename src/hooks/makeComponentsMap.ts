@@ -1,30 +1,46 @@
-import {ComponentsMap} from "../types";
 import fs from "fs";
-import rayConfigs from "../config.json";
-import {createResolver} from '@nuxt/kit'
+const tempPath = '.tmp'
+import {
+	requirementsBoot,
+	resolve,
+	InterfaceComponentsMap,
+	tmpDir,
+	mapFile,
+} from "../utils";
+import {Component} from "@nuxt/schema";
 
-const {resolve} = createResolver(import.meta.url)
-const moduleRootDir = resolve('./..')
-const mapFileName = 'components-map.json'
-const mapFile = resolve(moduleRootDir, rayConfigs.tempPath, mapFileName)
+
+export default (components: Component[]) => {
+	requirementsBoot().then(async (res) =>{
+		const { nuxt, themesDir} = res
+		const themesRootPath = resolve(nuxt.options.rootDir, themesDir)
 
 
-export default (components: any[]) => {
-	const componentsMap: ComponentsMap = [];
+		if (!fs.existsSync(resolve(themesRootPath, tmpDir)))
+			fs.mkdirSync(resolve(themesRootPath, tmpDir), { recursive: true})
 
-	components.forEach(component =>
-		component.kebabName.includes('theme-') && componentsMap.push({file: component.shortPath,componentName: component.kebabName})
-	)
+		if (fs.existsSync(resolve(themesRootPath, tmpDir)))
+			fs.writeFile(resolve(themesRootPath, tmpDir, mapFile), '', (e) => {if (e) console.log(e)})
 
-	const componentsMapJson = JSON.stringify(componentsMap, null, '\t');
+		if (!fs.existsSync(resolve(themesRootPath, tmpDir, mapFile)))
+			throw new Error('File ~/' + themesDir + '/' + tmpDir + '/' + mapFile + ' is not found')
 
-	fs.writeFile(
-		mapFile,
-		componentsMapJson,
-		'utf8',
-		(e) => {
-			if (e)
-				console.log(e)
-		}
-	);
+		const mapFilePath = resolve(themesRootPath, tmpDir, mapFile)
+
+		const componentsMap: InterfaceComponentsMap = [];
+
+		components.forEach(component =>
+			component.kebabName.includes('theme-') && componentsMap.push({file: component.shortPath,componentName: component.kebabName})
+		)
+
+		const componentsMapJson = JSON.stringify(componentsMap, null, '\t');
+		console.log(componentsMapJson)
+
+		fs.writeFile(
+			mapFilePath,
+			componentsMapJson,
+			'utf8',
+			(e) => {if (e) console.log(e)}
+		);
+	})
 }

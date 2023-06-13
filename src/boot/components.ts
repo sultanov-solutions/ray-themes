@@ -1,7 +1,11 @@
-import {addComponent, addComponentsDir, createResolver} from "@nuxt/kit";
+import {addComponent, addComponentsDir} from "@nuxt/kit";
 import {Nuxt} from "@nuxt/schema";
-import {useRequirementsBoot} from "./index";
-const {resolve} = createResolver(import.meta.url)
+import {resolve, requirementsBoot} from '../utils'
+import * as fs from "fs";
+const componentsRootPath = '../src/runtime/components/'
+
+// import {useRequirementsBoot} from "./index";
+// const {resolve} = createResolver(import.meta.url)
 
 const componentsList = {
 	'get-template-part': "template-part",
@@ -17,6 +21,10 @@ const componentsList = {
 }
 
 async function loadThemeRequirements(nuxt: Nuxt, themesDir:string, theme:string ){
+
+	if (!fs.existsSync(resolve(nuxt.options.rootDir, themesDir, theme)))
+		throw new Error('Theme ' + theme + ' is not found in ~/' + themesDir + '/' + theme +' directory')
+
 	// Theme components loader
 	await addComponentsDir({
 		path: resolve(nuxt.options.rootDir, themesDir, theme),
@@ -27,8 +35,6 @@ async function loadThemeRequirements(nuxt: Nuxt, themesDir:string, theme:string 
 }
 
 async function loadModuleComponents(){
-	const componentsRootPath = './../components/'
-
 	for (const [componentName, componentPath] of Object.entries(componentsList)) {
 		await addComponent({
 			name: componentName,
@@ -38,9 +44,8 @@ async function loadModuleComponents(){
 	}
 }
 
-export default async function useComponentsBoot (nuxt: Nuxt) {
-	const { themesDir, theme} = await useRequirementsBoot(nuxt)
-
+export default async function components () {
+	const { nuxt, themesDir, theme} = await requirementsBoot()
 	await loadModuleComponents()
 	await loadThemeRequirements(nuxt, themesDir, theme)
 }

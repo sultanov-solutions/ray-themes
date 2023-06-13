@@ -1,27 +1,21 @@
-import {defineNuxtModule, addPlugin, createResolver} from '@nuxt/kit'
+import {defineNuxtModule} from '@nuxt/kit'
+import defu from "defu";
 
-// Module options TypeScript interface definition
-export interface ModuleOptions {
-}
+import {
+	InterfaceRayModuleOptions,
+	bootDefaults, bootMeta, bootHooks, bootComponents
+} from "./utils";
 
-export default defineNuxtModule<ModuleOptions>({
-	meta: {
-		name: 'ray-themes',
-		configKey: 'rayThemes',
-		compatibility: {
-			// Semver version of supported nuxt versions
-			nuxt: '^3.0.0'
-		}
-	},
-	// Default configuration options of the Nuxt module
-	defaults: {
-		themesDir: 'themes',
-		theme: 'uiphoria2306'
-	},
-	setup(options, nuxt) {
-		const resolver = createResolver(import.meta.url)
-
-		// Do not add the extension since the `.ts` will be transpiled to `.mjs` after `npm run prepack`
-		addPlugin(resolver.resolve('./runtime/plugin'))
+export default defineNuxtModule<InterfaceRayModuleOptions>({
+	defaults: bootDefaults(),
+	meta: bootMeta(),
+	hooks: bootHooks(),
+	async setup(options, nuxt)
+	{
+		nuxt.options.runtimeConfig.public.rayThemes = defu(nuxt.options.runtimeConfig.public.rayThemes, options)
+		await bootComponents()
+		// await useComposablesBoot()
+		// await usePluginsBoot()
+		// await useThemeContextLoader(nuxt)
 	}
 })
