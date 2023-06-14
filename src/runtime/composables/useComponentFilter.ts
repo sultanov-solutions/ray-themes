@@ -6,7 +6,7 @@ export const useComponentFilter = (viewName: string, themeName: string | null = 
 	const componentsMap = useComponentsMap()
 
 	if(!themeName)
-		themeName = useRuntimeConfig()?.public?.rayModule?.theme
+		themeName = useRuntimeConfig()?.public?.rayThemes?.theme
 
 	const realViewName = 'theme-' + themeName + '-' + viewName
 
