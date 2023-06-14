@@ -3,7 +3,7 @@ import defu from "defu";
 
 import {
 	InterfaceRayModuleOptions,
-	bootDefaults, bootMeta, bootHooks, bootComponents
+	bootDefaults, bootMeta, bootHooks, bootComponents, composablesBoot
 } from "./utils";
 
 export default defineNuxtModule<InterfaceRayModuleOptions>({
@@ -14,7 +14,7 @@ export default defineNuxtModule<InterfaceRayModuleOptions>({
 	{
 		nuxt.options.runtimeConfig.public.rayThemes = defu(nuxt.options.runtimeConfig.public.rayThemes, options)
 		await bootComponents()
-		// await useComposablesBoot()
+		await composablesBoot()
 		// await usePluginsBoot()
 		// await useThemeContextLoader(nuxt)
 	}

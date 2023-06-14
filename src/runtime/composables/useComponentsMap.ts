@@ -1,4 +1,4 @@
-import componentsMap from '../.ray-temp/components-map.json'
-import { ComponentsMap } from "../types";
+import {InterfaceComponentsMap} from "../../utils";
+import componentsMap from "~/themes/.tmp/components.json";
 
-export const useComponentsMap = (): ComponentsMap => componentsMap
+export const useComponentsMap = (): InterfaceComponentsMap => componentsMap

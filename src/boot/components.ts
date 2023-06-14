@@ -1,11 +1,7 @@
 import {addComponent, addComponentsDir} from "@nuxt/kit";
 import {Nuxt} from "@nuxt/schema";
 import {resolve, requirementsBoot} from '../utils'
-import * as fs from "fs";
 const componentsRootPath = '../src/runtime/components/'
-
-// import {useRequirementsBoot} from "./index";
-// const {resolve} = createResolver(import.meta.url)
 
 const componentsList = {
 	'get-template-part': "template-part",
@@ -21,9 +17,10 @@ const componentsList = {
 }
 
 async function loadThemeRequirements(nuxt: Nuxt, themesDir:string, theme:string ){
-
+	/**
 	if (!fs.existsSync(resolve(nuxt.options.rootDir, themesDir, theme)))
 		throw new Error('Theme ' + theme + ' is not found in ~/' + themesDir + '/' + theme +' directory')
+	**/
 
 	// Theme components loader
 	await addComponentsDir({

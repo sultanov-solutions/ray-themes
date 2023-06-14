@@ -1,8 +1,8 @@
-import {RayTemplate} from "../types";
+import {InterfaceRayTemplate} from "../../utils";
 import {useComponentFilter} from "./useComponentFilter";
 import {useComponentsMap} from "./useComponentsMap";
 
-export const useRayTemplate = (): RayTemplate => {
+export const useRayTemplate = (): InterfaceRayTemplate => {
 	const defaultTheme = 'base'
 	const componentsMap = useComponentsMap()
 
