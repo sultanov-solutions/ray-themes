@@ -3,7 +3,6 @@ import bootDefaults from "../boot/default"
 import bootMeta from "../boot/meta"
 import bootHooks from "../boot/hooks"
 import {resolve} from "../resolve";
-import bootComponents from "../boot/components";
 import composablesBoot from "../boot/composables";
 
 interface InterfaceRayComponentMapItem extends types.RayComponentMapItem {}
@@ -26,7 +25,6 @@ export {
 	bootDefaults,
 	bootMeta,
 	bootHooks,
-	bootComponents,
 
 	// Utils
 	resolve,
