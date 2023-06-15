@@ -18,7 +18,6 @@ const componentsList = {
 	'get-footer': "ray-footer",
 	'get-search': "ray-search",
 	'get-layouts': "ray-layouts",
-	'get-components': "ray-components",
 }
 
 /**
