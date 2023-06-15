@@ -3,6 +3,6 @@
 <template>
 	<div>
 		Nuxt module playground! 3
-		<get-header />
+		<get-components name="assets-logo" />
 	</div>
 </template>

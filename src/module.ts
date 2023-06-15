@@ -1,14 +1,12 @@
 import {Nuxt} from "@nuxt/schema";
 import {addComponentsDir, defineNuxtModule, createResolver, addComponent} from '@nuxt/kit'
 import defu from "defu";
-const {resolve} = createResolver(import.meta.url)
-
 import {
 	InterfaceRayModuleOptions,
 	bootDefaults, bootMeta, bootHooks, composablesBoot, requirementsBoot
 } from "./utils";
 
-
+const {resolve} = createResolver(import.meta.url)
 const componentsRootPath = 'runtime/components/'
 const componentsList = {
 	'get-template-part': "template-part",
@@ -32,7 +30,7 @@ async function loadThemeRequirements(nuxt: Nuxt, themesDir:string, theme:string 
 		path: resolve(nuxt.options.rootDir, themesDir, theme),
 		global: true,
 		prefix: "theme-" + theme,
-		pattern: "**/*.vue"
+		pattern: "**/**/*.vue"
 	})
 }
 
